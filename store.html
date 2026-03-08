@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Store - Hindustan Mobile</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+    <style>
+      /* --- CORE STYLES --- */
+      :root {
+        --bg-dark: #050507;
+        --card-bg: #0f0f11;
+        --accent: #2997ff;
+        --accent-glow: rgba(41, 151, 255, 0.5);
+        --gold: #d4af37;
+        --text-main: #fff;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background-color: var(--bg-dark);
+        font-family: "Poppins", sans-serif;
+        overflow-x: hidden;
+        color: white;
+      }
+
+      /* HEADER (Left Aligned) */
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 70px;
+        display: flex;
+        justify-content: flex-end; /* Left align */
+        gap: 60px; /* Space between logo and hamburger */
+        align-items: center;
+        padding: 10px 20px;
+        background: rgba(5, 5, 7, 0.85);
+        backdrop-filter: blur(15px);
+        z-index: 2000;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      .logo {
+        font-size: 20px;
+        font-weight: 700;
+        font-family: "Montserrat", sans-serif;
+        color: #fff;
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        order: 1;
+      }
+      .hamburger {
+        font-size: 26px;
+        color: white;
+        cursor: pointer;
+        transition: 0.3s;
+        padding: 0%;
+        order: 2;
+        margin-top: 2px;
+      }
+      .hamburger:hover {
+        color: var(--accent);
+      }
+
+      /* SIDE MENU (Updated - LEFT ALIGNED) */
+      .nav-menu {
+        position: fixed;
+        top: 0;
+        left: -100%; /* Hidden on LEFT */
+        width: 300px;
+        height: 100vh;
+        background-color: #0a0a0c;
+        padding: 80px 30px;
+        transition: 0.5s;
+        border-right: 1px solid #222; /* Border on right */
+        z-index: 2000;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 10px 0 40px rgba(0, 0, 0, 0.9);
+      }
+      .nav-menu.active {
+        left: 0;
+      } /* Slide to 0 */
+
+      .close-btn {
+        position: absolute;
+        top: 25px;
+        right: 25px;
+        font-size: 30px;
+        cursor: pointer;
+        color: #888;
+      }
+      .nav-link {
+        width: 100%;
+        padding: 15px 0;
+        color: #ccc;
+        text-decoration: none;
+        border-bottom: 1px solid #222;
+        display: block;
+      }
+      .nav-link:hover {
+        color: var(--accent);
+        padding-left: 5px;
+        transition: 0.3s;
+      }
+
+      /* Dropdown in Store Menu */
+      .mobile-dropdown {
+        display: none;
+        padding-left: 15px;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 8px;
+        margin-top: 5px;
+      }
+      .mobile-dropdown.show {
+        display: block;
+        animation: fadeIn 0.4s ease;
+      }
+      .mobile-dropdown a {
+        display: block;
+        padding: 12px 0;
+        color: #999;
+        text-decoration: none;
+        font-size: 14px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      .mobile-dropdown a:hover {
+        color: white;
+      }
+
+      /* --- STORE HEADER --- */
+      .store-header {
+        padding: 120px 5% 40px 5%;
+        text-align: center;
+        background: radial-gradient(
+          circle at center,
+          #1a1a20 0%,
+          var(--bg-dark) 70%
+        );
+      }
+      .store-title {
+        font-size: 45px;
+        font-weight: 900;
+        font-family: "Montserrat", sans-serif;
+        margin-bottom: 5px;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        color: white;
+      }
+      .store-subtitle {
+        color: #888;
+        font-size: 16px;
+        margin-bottom: 30px;
+        letter-spacing: 1px;
+      }
+
+      /* Finance Banner */
+      .finance-banner {
+        background: linear-gradient(90deg, #ffd700, #ffa500);
+        color: black;
+        padding: 12px 25px;
+        border-radius: 50px;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 14px;
+        letter-spacing: 1px;
+        display: inline-block;
+        margin-bottom: 40px;
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+        animation: pulse-gold 2s infinite;
+      }
+      @keyframes pulse-gold {
+        0% {
+          box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7);
+        }
+        70% {
+          box-shadow: 0 0 0 10px rgba(255, 215, 0, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(255, 215, 0, 0);
+        }
+      }
+
+      /* Filters (Pill Shape) */
+      .filter-container {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 30px;
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+      .filter-btn {
+        padding: 10px 25px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.05);
+        color: #ccc;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: 0.3s;
+        font-size: 14px;
+        font-weight: 500;
+        backdrop-filter: blur(10px);
+      }
+      .filter-btn:hover,
+      .filter-btn.active {
+        background: var(--accent);
+        color: white;
+        border-color: var(--accent);
+        box-shadow: 0 0 20px var(--accent-glow);
+        transform: translateY(-2px);
+      }
+
+      /* --- PRODUCT GRID --- */
+      .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 30px;
+        padding: 0 5% 100px 5%;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .product-card {
+        background: var(--card-bg);
+        border: 1px solid #1f1f22;
+        border-radius: 20px;
+        overflow: hidden;
+        transition: all 0.4s ease;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+      }
+      /* Hover Glow Effect */
+      .product-card:hover {
+        transform: translateY(-10px);
+        border-color: var(--accent);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 15px var(--accent-glow);
+      }
+
+      .img-container {
+        height: 280px;
+        width: 100%;
+        background: linear-gradient(to bottom, #151518, #0f0f11);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 30px;
+        position: relative;
+        overflow: hidden;
+      }
+      .img-container img {
+        max-height: 100%;
+        max-width: 100%;
+        object-fit: contain;
+        transition: 0.5s ease;
+        filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0.5));
+      }
+      .product-card:hover .img-container img {
+        transform: scale(1.15);
+        filter: drop-shadow(0 20px 20px rgba(0, 0, 0, 0.7));
+      }
+
+      .product-info {
+        padding: 25px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .brand-tag {
+        font-size: 11px;
+        color: #666;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 700;
+        margin-bottom: 5px;
+      }
+      .product-title {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: white;
+        line-height: 1.4;
+      }
+      .product-price {
+        font-size: 22px;
+        color: #fff;
+        font-weight: 700;
+        margin-bottom: 20px;
+      }
+      .product-price span {
+        color: var(--accent);
+      }
+
+      .btn-buy {
+        width: 100%;
+        padding: 14px;
+        border: none;
+        background: linear-gradient(90deg, #1e1e24, #2a2a30);
+        color: white;
+        border-radius: 12px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: 0.3s;
+        margin-top: auto;
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+        border: 1px solid #333;
+      }
+      .btn-buy::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 100%;
+        background: var(--accent);
+        transition: 0.3s;
+        z-index: -1;
+      }
+      .product-card:hover .btn-buy {
+        border-color: var(--accent);
+      }
+      .btn-buy:hover::before {
+        width: 100%;
+      }
+      .btn-buy:hover {
+        box-shadow: 0 0 15px var(--accent-glow);
+        border-color: transparent;
+      }
+
+      /* WhatsApp Button */
+      .whatsapp-container {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        z-index: 3000;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration:  none;
+      }
+      .whatsapp-pill {
+        background: #25d366;
+        color: white;
+        padding: 12px 25px;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 16px;
+        box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transition: 0.3s;
+      }
+      .whatsapp-pill:hover {
+        transform: scale(1.05);
+        background: #20bd5a;
+        box-shadow: 0 5px 30px rgba(37, 211, 102, 0.6);
+      }
+
+      @media (max-width: 768px) {
+        header {
+          justify-content: flex-start;
+        }
+        .product-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 15px;
+          padding: 0 10px 80px 10px;
+        }
+        .img-container {
+          height: 160px;
+          padding: 10px;
+        }
+        .product-title {
+          font-size: 14px;
+        }
+        .product-price {
+          font-size: 16px;
+        }
+        .btn-buy {
+          font-size: 12px;
+          padding: 10px;
+        }
+        .whatsapp-pill span {
+          display: none;
+        }
+        .whatsapp-pill {
+          padding: 15px;
+          border-radius: 40%;
+          width: 60px;
+          height: 60px;
+          justify-content: center;
+        }
+        .whatsapp-icon {
+          font-size: 30px;
+        }
+        .store-title {
+          font-size: 32px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="index.html" class="logo"
+        >Hindustan <span style="color: var(--accent)">Mobile</span></a
+      >
+      <div class="hamburger" onclick="toggleSideMenu()">☰</div>
+    </header>
+
+    <ul class="nav-menu" id="side-menu">
+      <div class="close-btn" onclick="toggleSideMenu()">✕</div>
+      <li style="list-style: none">
+        <a href="index.html" class="nav-link">Home</a>
+      </li>
+      <li style="list-style: none">
+        <a href="#" class="nav-link" style="color: var(--accent)">Store</a>
+      </li>
+
+      <li style="list-style: none" class="nav-item">
+        <a
+          href="javascript:void(0)"
+          onclick="toggleMobileDropdown('drop-contact')"
+          class="nav-link"
+          >Contact <span>▾</span></a
+        >
+        <div id="drop-contact" class="mobile-dropdown">
+          <a href="tel:+917728930932">📞 Call Manager</a>
+          <a
+            href="https://maps.app.goo.gl/jzmaYUMvg6rCdKED8"
+            target="_blank"
+            >📍 View Location</a
+          >
+        </div>
+      </li>
+    </ul>
+
+    <div
+      id="menu-overlay"
+      onclick="toggleSideMenu()"
+      style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 1999;
+        backdrop-filter: blur(5px);
+      "
+    ></div>
+
+    <div class="store-header" data-aos="fade-down">
+      <h1 class="store-title">Premium Store</h1>
+      <p class="store-subtitle">100% Original Products | Best Market Rates</p>
+
+      <div class="finance-banner">
+        ⚡ All Mobiles Available on Finance & 0% EMI ⚡
+      </div>
+
+      <div class="filter-container">
+        <button class="filter-btn active" onclick="filterProducts('all')">
+          All
+        </button>
+        <button class="filter-btn" onclick="filterProducts('iphone')">
+          iPhone
+        </button>
+        <button class="filter-btn" onclick="filterProducts('samsung')">
+          Samsung
+        </button>
+        <button class="filter-btn" onclick="filterProducts('oneplus')">
+          OnePlus
+        </button>
+        <button class="filter-btn" onclick="filterProducts('motorola')">
+          Motorola
+        </button>
+        <button class="filter-btn" onclick="filterProducts('vivo')">
+          Vivo / Oppo
+        </button>
+        <button class="filter-btn" onclick="filterProducts('accessories')">
+          Accessories
+        </button>
+      </div>
+    </div>
+
+    <div class="product-grid">
+      <div
+        class="product-card"
+        data-category="iphone"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        <div class="img-container">
+          <img src="image/iphone17.avif" alt="iphone17" />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">Apple</span>
+          <div class="product-title">iphone17</div>
+          <div class="product-price"><span>₹1,02,900</span></div>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div
+        class="product-card"
+        data-category="iphone"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        <div class="img-container">
+          <img src="image/iphone16 pro.png" alt="iphone16 Pro" />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">Apple</span>
+          <div class="product-title">iphone16 Pro</div>
+          <div class="product-price"><span>₹1,24,999</span></div>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="iphone" data-aos="fade-up">
+        <div class="img-container">
+          <img
+            src="image/iphone15.png"
+            alt="iPhone 15"
+          />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">Apple</span>
+          <div class="product-title">iPhone 15</div>
+          <div class="product-price"><span>₹51,999</span></div>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      
+      <div
+        class="product-card"
+        data-category="samsung"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        <div class="img-container">
+          <img
+            src="https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?q=80&w=1000&auto=format&fit=crop"
+            alt="S24"
+          />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">Samsung</span>
+          <div class="product-title">Galaxy S21 Ultra</div>
+          <div class="product-price"><span>₹97,500</span></div>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div
+        class="product-card"
+        data-category="samsung"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        <div class="img-container">
+          <img src="image/samsung galaxy.png" alt="S24" />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">Samsung</span>
+          <div class="product-title">Galaxy S24 Ultra</div>
+          <div class="product-price"><span>₹1,29,999</span></div>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div
+        class="product-card"
+        data-category="samsung"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        <div class="img-container">
+          <img src="image/samsung1.jpeg" alt="S24" />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">Samsung</span>
+          <div class="product-title"></div>
+          <div class="product-price"><span>Galaxy A36 5G</span></div>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div
+        class="product-card"
+        data-category="samsung"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        <div class="img-container">
+          <img src="image/samsung2.jpeg" alt="S24" />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">Samsung</span>
+          <div class="product-title"></div>
+          <div class="product-price"><span>Galaxy M36 5G</span></div>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div
+        class="product-card"
+        data-category="samsung"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        <div class="img-container">
+          <img src="image/samsung3.jpeg" alt="S24" />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">Samsung</span>
+          <div class="product-title"></div>
+          <div class="product-price"><span>Galaxy A17 5G</span></div>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div
+        class="product-card"
+        data-category="samsung"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        <div class="img-container">
+          <img src="image/samsung4.jpeg" alt="S24" />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">Samsung</span>
+          <div class="product-title"></div>
+          <div class="product-price"><span>Galaxy A26 5G</span></div>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div
+        class="product-card"
+        data-category="samsung"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        <div class="img-container">
+          <img src="image/samsung5.jpeg" alt="S24" />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">Samsung</span>
+          <div class="product-title"></div>
+          <div class="product-price"><span>Galaxy A17 5G</span></div>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div
+        class="product-card"
+        data-category="samsung"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        <div class="img-container">
+          <img src="image/samsung6.jpeg" alt="S24" />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">Samsung</span>
+          <div class="product-title"></div>
+          <div class="product-price"><span>Galaxy A06 5G</span></div>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div
+        class="product-card"
+        data-category="samsung"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        <div class="img-container">
+          <img src="image/samsung7.jpeg" alt="S24" />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">Samsung</span>
+          <div class="product-title"></div>
+          <div class="product-price"><span>Galaxy A07</span></div>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div
+        class="product-card"
+        data-category="vivo"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        <div class="img-container">
+          <img src="image/oppo.png" alt="oppo Find x8 pro" />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">oppo</span>
+          <div class="product-title">Oppo Find x8 pro</div>
+          <div class="product-price"><span>₹99,999</span></div>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div
+        class="product-card"
+        data-category="vivo"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        <div class="img-container">
+          <img src="image/oppo x8.png" alt="Oppo Find x8 pro" />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">oppo</span>
+          <div class="product-title">Oppo Find x8 pro</div>
+          <div class="product-price"><span>₹84,999</span></div>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div
+        class="product-card"
+        data-category="vivo"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        <div class="img-container">
+          <img src="image/oppo.jpeg" alt="Oppo Find x8 pro" />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">oppo</span>
+          <div class="product-title"></div>
+          <div class="product-price"><span>Oppo</span></div>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div
+        class="product-card"
+        data-category="vivo"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        <div class="img-container">
+          <img src="image/oppo2.jpeg" alt="Oppo Find x8 pro" />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">oppo</span>
+          <div class="product-title"></div>
+          <div class="product-price"><span>Oppo</span></div>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div
+        class="product-card"
+        data-category="vivo"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        <div class="img-container">
+          <img src="image/oppo3.jpeg" alt="Oppo Find x8 pro" />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">oppo</span>
+          <div class="product-title"></div>
+          <div class="product-price"><span>Oppo</span></div>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div
+        class="product-card"
+        data-category="vivo"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        <div class="img-container">
+          <img src="image/oppo4.jpeg" alt="Oppo Find x8 pro" />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">oppo</span>
+          <div class="product-title"></div>
+          <div class="product-price"><span>Oppo</span></div>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div
+        class="product-card"
+        data-category="vivo"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        <div class="img-container">
+          <img src="image/vivo v40.png" alt="Vivo" />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">Vivo</span>
+          <div class="product-title">vivo v40</div>
+          <div class="product-price"><span>₹49,999</span></div>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div
+        class="product-card"
+        data-category="vivo"
+        data-aos="fade-up"
+        data-aos-delay="250"
+      >
+        <div class="img-container">
+          <img
+            src="https://akm-img-a-in.tosshub.com/indiatoday/images/story/202401/vivo-x100-pro-042040544-16x9_1.jpg?VersionId=0OK6f4CPE9FaVctUHKaFcVWKkZOZySMg&size=690:388"
+            alt="Vivo X100"
+          />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">Vivo</span>
+          <div class="product-title">Vivo X100 Pro</div>
+          <div class="product-price"><span>₹89,999</span></div>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div
+        class="product-card"
+        data-category="oneplus"
+        data-aos="fade-up"
+        data-aos-delay="150"
+      >
+        <div class="img-container">
+          <img
+            src="https://images.timesnownews.com/thumb/msid-152235993,thumbsize-21566,width-1280,height-720,resizemode-75/152235993.jpg"
+            alt="OnePlus 12R"
+          />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">OnePlus</span>
+          <div class="product-title">OnePlus 12R</div>
+          <div class="product-price"><span>₹28,500</span></div>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div
+        class="product-card"
+        data-category="oneplus"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
+        <div class="img-container">
+          <img src="image/oneplus.png" alt="oneplus 13" />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">oneplus</span>
+          <div class="product-title">oneplus 13</div>
+          <div class="product-price"><span>₹63,999</span></div>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div
+        class="product-card"
+        data-category="motorola"
+        data-aos="fade-up"
+        data-aos-delay="300"
+      >
+        <div class="img-container">
+          <img
+            src="https://i0.wp.com/androidguys.com/wp-content/uploads/2023/06/moto-razr-40-ultra-1.jpg?w=1392&ssl=1"
+            alt="Moto"
+          />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">Motorola</span>
+          <div class="product-title">Moto Razr 40 Ultra</div>
+          <div class="product-price"><span>₹69,999</span></div>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="accessories" data-aos="fade-up">
+        <div class="img-container">
+          <img
+            src="https://www.hollyland.com/wp-content/uploads/2023/08/image-206.png"
+            alt="AirPods"
+          />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">Wireless Audio</span>
+          <div class="product-title">Premium AirPods & TWS</div>
+          <div class="product-price"><span>Starts ₹999</span></div>
+          <p style="font-size: 12px; color: #888; margin-bottom: 15px">
+            Active Noise Cancellation (ANC), High Bass & Long Battery.
+          </p>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="accessories" data-aos="fade-up">
+        <div class="img-container">
+          <img src="image/buds1.jpeg" alt="AirPods" />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">Wireless Audio</span>
+          <div class="product-title">Premium AirPods & TWS</div>
+          <div class="product-price"><span>Starts ₹799</span></div>
+          <p style="font-size: 12px; color: #888; margin-bottom: 15px">
+            Active Noise Cancellation (ANC), High Bass & Long Battery.
+          </p>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="accessories" data-aos="fade-up">
+        <div class="img-container">
+          <img src="image/buds2.jpeg" alt="AirPods" />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">Wireless Audio</span>
+          <div class="product-title">Premium AirPods & TWS</div>
+          <div class="product-price"><span>Starts ₹799</span></div>
+          <p style="font-size: 12px; color: #888; margin-bottom: 15px">
+            Active Noise Cancellation (ANC), High Bass & Long Battery.
+          </p>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="accessories" data-aos="fade-up">
+        <div class="img-container">
+          <img src="image/buds3.jpeg" alt="AirPods" />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">Wireless Audio</span>
+          <div class="product-title">Premium AirPods & TWS</div>
+          <div class="product-price"><span>Starts ₹899</span></div>
+          <p style="font-size: 12px; color: #888; margin-bottom: 15px">
+            Active Noise Cancellation (ANC), High Bass & Long Battery.
+          </p>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="accessories" data-aos="fade-up">
+        <div class="img-container">
+          <img src="image/buds4.jpeg" alt="AirPods" />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">Wireless Audio</span>
+          <div class="product-title">Premium AirPods & TWS</div>
+          <div class="product-price"><span>Starts 899</span></div>
+          <p style="font-size: 12px; color: #888; margin-bottom: 15px">
+            Active Noise Cancellation (ANC), High Bass & Long Battery.
+          </p>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="accessories" data-aos="fade-up">
+        <div class="img-container">
+          <img src="image/buds5.jpeg" alt="AirPods" />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">Wireless Audio</span>
+          <div class="product-title">Premium AirPods & TWS</div>
+          <div class="product-price"><span>Starts ₹899</span></div>
+          <p style="font-size: 12px; color: #888; margin-bottom: 15px">
+            Active Noise Cancellation (ANC), High Bass & Long Battery.
+          </p>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="accessories" data-aos="fade-up">
+        <div class="img-container">
+          <img src="image/buds6.jpeg" alt="AirPods" />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">Wireless Audio</span>
+          <div class="product-title">Premium AirPods & TWS</div>
+          <div class="product-price"><span>Starts ₹799</span></div>
+          <p style="font-size: 12px; color: #888; margin-bottom: 15px">
+            Active Noise Cancellation (ANC), High Bass & Long Battery.
+          </p>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="accessories" data-aos="fade-up">
+        <div class="img-container">
+          <img src="image/watch1.jpeg" alt="Smart Watch" />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">Wearables</span>
+          <div class="product-title">Ultra Series & Smart Watches</div>
+          <div class="product-price"><span>Starts ₹800</span></div>
+          <p style="font-size: 12px; color: #888; margin-bottom: 15px">
+            BT Calling, Heart Rate, Sports Mode & Full Touch.
+          </p>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="accessories" data-aos="fade-up">
+        <div class="img-container">
+          <img src="image/watch2.jpeg" alt="Smart Watch" />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">Wearables</span>
+          <div class="product-title">Ultra Series & Smart Watches</div>
+          <div class="product-price"><span>Starts ₹800</span></div>
+          <p style="font-size: 12px; color: #888; margin-bottom: 15px">
+            BT Calling, Heart Rate, Sports Mode & Full Touch.
+          </p>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="accessories" data-aos="fade-up">
+        <div class="img-container">
+          <img src="image/watch3.jpeg" alt="Smart Watch" />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">Wearables</span>
+          <div class="product-title">Ultra Series & Smart Watches</div>
+          <div class="product-price"><span>Starts ₹1000</span></div>
+          <p style="font-size: 12px; color: #888; margin-bottom: 15px">
+            BT Calling, Heart Rate, Sports Mode & Full Touch.
+          </p>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="accessories" data-aos="fade-up">
+        <div class="img-container">
+          <img src="image/watch4.jpeg" alt="Smart Watch" />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">Wearables</span>
+          <div class="product-title">Ultra Series & Smart Watches</div>
+          <div class="product-price"><span>Starts ₹900</span></div>
+          <p style="font-size: 12px; color: #888; margin-bottom: 15px">
+            BT Calling, Heart Rate, Sports Mode & Full Touch.
+          </p>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="vivo" data-aos="fade-up">
+        <div class="img-container">
+          <img src="image/shop1.jpeg" alt="New Phones" />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">New Stock</span>
+          <div class="product-title">All Android Mobiles</div>
+          <div class="product-price"><span>Best Market Price</span></div>
+         <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="vivo" data-aos="fade-up">
+        <div class="img-container">
+          <img src="image/shop2.jpeg" alt="New Phones" />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">New Stock</span>
+          <div class="product-title">All Android Mobiles</div>
+          <div class="product-price"><span>Best Market Price</span></div>
+         <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="accessories" data-aos="fade-up">
+        <div class="img-container">
+          <img src="image/cable.jpeg" alt="Accessories" />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">Gadgets</span>
+          <div class="product-title">
+            Chargers, Cables & Neckbands, Screen Guards (Tempered Glass)
+          </div>
+          <div class="product-price"><span>Starts ₹150</span></div>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="accessories" data-aos="fade-up">
+        <div class="img-container">
+          <img src="image/cable.jpeg" alt="Accessories" />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">Gadgets</span>
+          <div class="product-title">
+            Chargers, Cables & Neckbands, Screen Guards (Tempered Glass)
+          </div>
+          <div class="product-price"><span>Starts ₹150</span></div>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="accessories" data-aos="fade-up">
+        <div class="img-container">
+          <img src="image/card.jpeg" alt="Mobile Skins" />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">Customization</span>
+          <div class="product-title">Premium 3D Mobile Skins</div>
+          <div class="product-price"><span>Starts ₹149</span></div>
+          <p style="font-size: 12px; color: #888; margin-bottom: 15px">
+            Available for All Models. Scratch Proof & Embossed Texture.
+          </p>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="accessories" data-aos="fade-up">
+        <div class="img-container">
+          <img src="image/cover.jpeg" alt="Mobile Covers" />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">Back Covers</span>
+          <div class="product-title">Fancy & Silicon Covers</div>
+          <div class="product-price"><span>Starts ₹150</span></div>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="accessories" data-aos="fade-up">
+        <div class="img-container">
+          <img src="image/cover2.jpeg" alt="Mobile Covers" />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">Back Covers</span>
+          <div class="product-title">Fancy & Silicon Covers</div>
+          <div class="product-price"><span>Starts ₹150</span></div>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="accessories" data-aos="fade-up">
+        <div class="img-container">
+          <img src="image/screen1.jpeg" alt="Original Display Folder" />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">Spare Parts</span>
+          <div class="product-title">Original Display Folder (Combo)</div>
+          <div class="product-price"><span>₹1,500 - ₹4,500</span></div>
+          <p style="font-size: 12px; color: #888; margin-bottom: 15px">
+            Available for: Redmi, Realme, Vivo, Oppo, Samsung
+          </p>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="accessories" data-aos="fade-up">
+        <div class="img-container">
+          <img src="image/screen2.jpeg" alt="Original Display Folder" />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">Spare Parts</span>
+          <div class="product-title">Original Display Folder (Combo)</div>
+          <div class="product-price"><span>₹1,500 - ₹4,500</span></div>
+          <p style="font-size: 12px; color: #888; margin-bottom: 15px">
+            Available for: Redmi, Realme, Vivo, Oppo, Samsung
+          </p>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="accessories" data-aos="fade-up">
+        <div class="img-container">
+          <img src="image/screen3.jpeg" alt="Original Display Folder" />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">Spare Parts</span>
+          <div class="product-title">Original Display Folder (Combo)</div>
+          <div class="product-price"><span>₹1,500 - ₹4,500</span></div>
+          <p style="font-size: 12px; color: #888; margin-bottom: 15px">
+            Available for: Redmi, Realme, Vivo, Oppo, Samsung
+          </p>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="accessories" data-aos="fade-up">
+        <div class="img-container">
+          <img src="image/screen4.jpeg" alt="Original Display Folder" />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">Spare Parts</span>
+          <div class="product-title">Original Display Folder (Combo)</div>
+          <div class="product-price"><span>₹1,500 - ₹4,500</span></div>
+          <p style="font-size: 12px; color: #888; margin-bottom: 15px">
+            Available for: Redmi, Realme, Vivo, Oppo, Samsung
+          </p>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="accessories" data-aos="fade-up">
+        <div class="img-container">
+          <img src="image/screen5.jpeg" alt="Original Display Folder" />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">Spare Parts</span>
+          <div class="product-title">Original Display Folder (Combo)</div>
+          <div class="product-price"><span>₹1,500 - ₹4,500</span></div>
+          <p style="font-size: 12px; color: #888; margin-bottom: 15px">
+            Available for: Redmi, Realme, Vivo, Oppo, Samsung
+          </p>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="accessories" data-aos="fade-up">
+        <div class="img-container">
+          <img src="image/screen6.jpeg" alt="Original Display Folder" />
+        </div>
+        <div class="product-info">
+          <span class="brand-tag">Spare Parts</span>
+          <div class="product-title">Original Display Folder (Combo)</div>
+          <div class="product-price"><span>₹1,500 - ₹4,500</span></div>
+          <p style="font-size: 12px; color: #888; margin-bottom: 15px">
+            Available for: Redmi, Realme, Vivo, Oppo, Samsung
+          </p>
+          <button class="btn-buy" onclick="orderNow()">Call to Order</button>
+        </div>
+      </div>
+    </div>
+
+    <a href="https://wa.me/917728930932"
+      class="whatsapp-container"
+      target="_blank">
+      <div class="whatsapp-pill">
+        <span class="whatsapp-icon">💬</span>
+        <span>Chat on WhatsApp</span>
+      </div>
+    </a>
+
+    <footer
+      style="
+        background: #000;
+        border-top: 1px solid #222;
+        padding: 40px 5%;
+        color: #666;
+        font-size: 13px;
+        text-align: center;
+      "
+    >
+      <p>© 2024 Hindustan Mobile. All Rights Reserved.</p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init({ once: true });
+
+      function toggleSideMenu() {
+        var menu = document.getElementById("side-menu");
+        var overlay = document.getElementById("menu-overlay");
+        menu.classList.toggle("active");
+        overlay.style.display = menu.classList.contains("active")
+          ? "block"
+          : "none";
+      }
+
+      function toggleMobileDropdown(id) {
+        document.querySelectorAll(".mobile-dropdown").forEach((drop) => {
+          if (drop.id !== id) drop.classList.remove("show");
+        });
+        document.getElementById(id).classList.toggle("show");
+      }
+
+      function filterProducts(category) {
+        document.querySelectorAll(".filter-btn").forEach((btn) => {
+          btn.classList.remove("active");
+          if (
+            btn.innerText.toLowerCase().includes(category) ||
+            (category === "all" && btn.innerText.includes("All"))
+          ) {
+            btn.classList.add("active");
+          }
+        });
+
+        document.querySelectorAll(".product-card").forEach((card) => {
+          if (
+            category === "all" ||
+            card.getAttribute("data-category") === category
+          ) {
+            card.style.display = "flex";
+            // Re-trigger animation
+            card.classList.remove("aos-animate");
+            setTimeout(() => card.classList.add("aos-animate"), 50);
+          } else {
+            card.style.display = "none";
+          }
+        });
+      }
+
+      function orderNow() {
+        window.location.href = "tel:+917728930932";
+      }
+
+      // Add style for fade in animation
+      const styleSheet = document.createElement("style");
+      styleSheet.innerText = `
+            @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        `;
+      document.head.appendChild(styleSheet);
+    </script>
+  </body>
+</html>
