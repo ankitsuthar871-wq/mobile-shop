@@ -78,17 +78,17 @@
       .nav-menu {
         position: fixed;
         top: 0;
-        left: -100%; /* Hidden on LEFT */
+        right: -100%; /* Hidden on LEFT */
         width: 300px;
         height: 100vh;
         background-color: #0a0a0c;
         padding: 80px 30px;
         transition: 0.5s;
-        border-right: 1px solid #222; /* Border on right */
+        border-left: 1px solid #222; /* Border on right */
         z-index: 2000;
         display: flex;
         flex-direction: column;
-        box-shadow: 10px 0 40px rgba(0, 0, 0, 0.9);
+        box-shadow: -10px 0 40px rgba(0, 0, 0, 0.9);
       }
       .nav-menu.active {
         left: 0;
@@ -396,16 +396,12 @@
           font-size: 12px;
           padding: 10px;
         }
-        .whatsapp-pill span {
-          display: none;
-        }
-        .whatsapp-pill {
-          padding: 15px;
-          border-radius: 40%;
-          width: 60px;
-          height: 60px;
-          justify-content: center;
-        }
+       /* NAYA CHHOTA BLOCK: */
+.whatsapp-pill {
+   padding: 10px 18px;
+   font-size: 13px;
+}
+
         .whatsapp-icon {
           font-size: 30px;
         }
