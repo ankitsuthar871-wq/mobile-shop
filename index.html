@@ -1064,141 +1064,24 @@
             @keyframes scrollText { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         `;
         document.head.appendChild(styleSheet);
-        document.querySelector("form").addEventListener("submit", async function (e) {
+        document.getElementById("repairForm").addEventListener("submit", function (e) {
+            e.preventDefault();
 
-            e.preventDefault()
+            const name = document.getElementById("name").value.trim();
+            const phone = document.getElementById("phone").value.trim();
+            const issue = document.getElementById("issue").value;
 
-            const name = document.querySelector("#name").value
-            const phone = document.querySelector("#phone").value
-            const issue = document.querySelector("#issue").value
+            if (!name || !phone || issue === "Select Your Issue") {
+                alert("Please fill all fields!");
+                return;
+            }
 
-            const response = await fetch("http://localhost:5000/repair", {
+            const message = `🛠️ *Repair Booking Request*%0A%0A👤 Name: ${name}%0A📞 Phone: ${phone}%0A🔧 Issue: ${issue}%0A%0APlease confirm my repair booking.`;
+            const whatsappURL = `https://wa.me/917728930932?text=${message}`;
 
-                method: "POST",
+            window.open(whatsappURL, "_blank");
 
-                headers: {
-                    "Content-Type": "application/json"
-                },
-
-                body: JSON.stringify({
-                    name: name,
-                    phone: phone,
-                    issue: issue
-                })
-
-            })
-
-            const data = await response.json()
-
-            alert(data.message)
-
-        })
-
-
-        document.querySelector("#repairForm").addEventListener("submit", async function (e) {
-
-            e.preventDefault()
-
-            const name = document.querySelector("#name").value
-            const phone = document.querySelector("#phone").value
-            const issue = document.querySelector("#issue").value
-
-            const response = await fetch("http://localhost:5000/repair", {
-
-                method: "POST",
-
-                headers: {
-                    "Content-Type": "application/json"
-                },
-
-                body: JSON.stringify({
-                    name: name,
-                    phone: phone,
-                    issue: issue
-                })
-
-            })
-
-            const data = await response.json()
-
-            alert(data.message)
-
-        })
-
-
-
-
-
-        document.querySelector("#repairForm").addEventListener("submit", async function (e) {
-
-            e.preventDefault()
-
-            const name = document.querySelector("#name").value
-            const phone = document.querySelector("#phone").value
-            const issue = document.querySelector("#issue").value
-
-            const response = await fetch("http://localhost:5000/repair", {
-
-                method: "POST",
-
-                headers: {
-                    "Content-Type": "application/json"
-                },
-
-                body: JSON.stringify({
-                    name: name,
-                    phone: phone,
-                    issue: issue
-                })
-
-            })
-
-            const data = await response.json()
-
-            alert(data.message)
-
-        })
-
-
-        document.addEventListener("DOMContentLoaded", function () {
-
-            const form = document.getElementById("repairForm");
-
-            form.addEventListener("submit", async function (e) {
-
-                e.preventDefault();
-
-                const name = document.getElementById("name").value;
-                const phone = document.getElementById("phone").value;
-                const issue = document.getElementById("issue").value;
-
-                try {
-
-                    const response = await fetch("http://localhost:5000/repair", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify({
-                            name: name,
-                            phone: phone,
-                            issue: issue
-                        })
-                    });
-
-                    const data = await response.json();
-
-                    alert(data.message);
-
-                    form.reset();
-
-                } catch (error) {
-                    console.error("Error:", error);
-                    alert("Server connection error");
-                }
-
-            });
-
+            document.getElementById("repairForm").reset();
         });
 
 
